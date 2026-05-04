@@ -12,8 +12,7 @@ part of 'book.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$Book {
@@ -24,9 +23,7 @@ mixin _$Book {
   BookStatus get status => throw _privateConstructorUsedError;
   int get genreId => throw _privateConstructorUsedError;
 
-  /// Create a copy of Book
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $BookCopyWith<Book> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -35,14 +32,13 @@ abstract class $BookCopyWith<$Res> {
   factory $BookCopyWith(Book value, $Res Function(Book) then) =
       _$BookCopyWithImpl<$Res, Book>;
   @useResult
-  $Res call({
-    int id,
-    String title,
-    String author,
-    String description,
-    BookStatus status,
-    int genreId,
-  });
+  $Res call(
+      {int id,
+      String title,
+      String author,
+      String description,
+      BookStatus status,
+      int genreId});
 }
 
 /// @nodoc
@@ -55,8 +51,6 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of Book
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -67,54 +61,49 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
     Object? status = null,
     Object? genreId = null,
   }) {
-    return _then(
-      _value.copyWith(
-            id: null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                      as int,
-            title: null == title
-                ? _value.title
-                : title // ignore: cast_nullable_to_non_nullable
-                      as String,
-            author: null == author
-                ? _value.author
-                : author // ignore: cast_nullable_to_non_nullable
-                      as String,
-            description: null == description
-                ? _value.description
-                : description // ignore: cast_nullable_to_non_nullable
-                      as String,
-            status: null == status
-                ? _value.status
-                : status // ignore: cast_nullable_to_non_nullable
-                      as BookStatus,
-            genreId: null == genreId
-                ? _value.genreId
-                : genreId // ignore: cast_nullable_to_non_nullable
-                      as int,
-          )
-          as $Val,
-    );
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      author: null == author
+          ? _value.author
+          : author // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as BookStatus,
+      genreId: null == genreId
+          ? _value.genreId
+          : genreId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
   }
 }
 
 /// @nodoc
 abstract class _$$BookImplCopyWith<$Res> implements $BookCopyWith<$Res> {
   factory _$$BookImplCopyWith(
-    _$BookImpl value,
-    $Res Function(_$BookImpl) then,
-  ) = __$$BookImplCopyWithImpl<$Res>;
+          _$BookImpl value, $Res Function(_$BookImpl) then) =
+      __$$BookImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({
-    int id,
-    String title,
-    String author,
-    String description,
-    BookStatus status,
-    int genreId,
-  });
+  $Res call(
+      {int id,
+      String title,
+      String author,
+      String description,
+      BookStatus status,
+      int genreId});
 }
 
 /// @nodoc
@@ -122,10 +111,8 @@ class __$$BookImplCopyWithImpl<$Res>
     extends _$BookCopyWithImpl<$Res, _$BookImpl>
     implements _$$BookImplCopyWith<$Res> {
   __$$BookImplCopyWithImpl(_$BookImpl _value, $Res Function(_$BookImpl) _then)
-    : super(_value, _then);
+      : super(_value, _then);
 
-  /// Create a copy of Book
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -136,48 +123,45 @@ class __$$BookImplCopyWithImpl<$Res>
     Object? status = null,
     Object? genreId = null,
   }) {
-    return _then(
-      _$BookImpl(
-        id: null == id
-            ? _value.id
-            : id // ignore: cast_nullable_to_non_nullable
-                  as int,
-        title: null == title
-            ? _value.title
-            : title // ignore: cast_nullable_to_non_nullable
-                  as String,
-        author: null == author
-            ? _value.author
-            : author // ignore: cast_nullable_to_non_nullable
-                  as String,
-        description: null == description
-            ? _value.description
-            : description // ignore: cast_nullable_to_non_nullable
-                  as String,
-        status: null == status
-            ? _value.status
-            : status // ignore: cast_nullable_to_non_nullable
-                  as BookStatus,
-        genreId: null == genreId
-            ? _value.genreId
-            : genreId // ignore: cast_nullable_to_non_nullable
-                  as int,
-      ),
-    );
+    return _then(_$BookImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      author: null == author
+          ? _value.author
+          : author // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as BookStatus,
+      genreId: null == genreId
+          ? _value.genreId
+          : genreId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
   }
 }
 
 /// @nodoc
 
 class _$BookImpl implements _Book {
-  const _$BookImpl({
-    required this.id,
-    required this.title,
-    required this.author,
-    required this.description,
-    required this.status,
-    required this.genreId,
-  });
+  const _$BookImpl(
+      {required this.id,
+      required this.title,
+      required this.author,
+      required this.description,
+      required this.status,
+      required this.genreId});
 
   @override
   final int id;
@@ -215,9 +199,7 @@ class _$BookImpl implements _Book {
   int get hashCode =>
       Object.hash(runtimeType, id, title, author, description, status, genreId);
 
-  /// Create a copy of Book
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$BookImplCopyWith<_$BookImpl> get copyWith =>
@@ -225,14 +207,13 @@ class _$BookImpl implements _Book {
 }
 
 abstract class _Book implements Book {
-  const factory _Book({
-    required final int id,
-    required final String title,
-    required final String author,
-    required final String description,
-    required final BookStatus status,
-    required final int genreId,
-  }) = _$BookImpl;
+  const factory _Book(
+      {required final int id,
+      required final String title,
+      required final String author,
+      required final String description,
+      required final BookStatus status,
+      required final int genreId}) = _$BookImpl;
 
   @override
   int get id;
@@ -246,11 +227,8 @@ abstract class _Book implements Book {
   BookStatus get status;
   @override
   int get genreId;
-
-  /// Create a copy of Book
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$BookImplCopyWith<_$BookImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -65,3 +65,48 @@
 **Инициализация:**
 - `lib/core/init_hive.dart`: функция initHive() регистрирует адаптеры
 - `lib/main.dart`: интеграция ProviderScope и инициализация Hive
+
+### ✅ Presentation слой (lib/presentation)
+**ViewModels/State:**
+- `BookViewState`: состояние с books, searchQuery, statusFilter + метод filteredBooks
+- `BookNotifier` (StateNotifier): управление состоянием с методами addBook, updateBook, deleteBook, updateBookStatus
+
+**Methods (BookNotifier):**
+- `initialize()` - загрузить все книги при инициализации
+- `addBook()`, `updateBook()`, `deleteBook()` - CRUD операции
+- `updateBookStatus()` - сменить статус книги  
+- `setStatusFilter()`, `setSearchQuery()` - управление фильтрами
+- `clearFilters()` - очистить все фильтры
+
+**Providers (Presentation):**
+- `bookNotifierProvider`: StateNotifierProvider для BookNotifier
+- `filteredBooksProvider`: Provider для получения отфильтрованного списка
+- `hasActiveFiltersProvider`: Provider для проверки активных фильтров
+
+**Функциональность:**
+- Поиск по названию и автору (live search)
+- Фильтрация по статусу книги
+- Полный CRUD для книг
+- Синхронизация состояния с репозиторием
+
+### ✅ UI слой (lib/presentation)
+**Widgets:**
+- `BookCard`: Material 3 карточка с названием, автором, чипом статуса + меню редактирования/удаления
+
+**Screens:**
+- `LibraryScreen`: главный экран с:
+  - SliverAppBar с градиентом
+  - SearchBar для живого поиска
+  - FilterChips для фильтрации по статусу (Все, Доступна, Выдана, Зарезервирована, Недоступна)
+  - ListView.builder для списка книг
+  - Кнопка очистки фильтров
+  - EmptyState при отсутствии книг
+  - PopupMenu на каждой карточке (Редактировать, Удалить)
+  - FloatingActionButton для добавления новой книги
+  - Диалог подтверждения удаления
+
+**Material 3:**
+- `useMaterial3: true` в ThemeData
+- Система цветов через `ColorScheme.fromSeed()`
+- Light & Dark темы
+- Gradient в SliverAppBar

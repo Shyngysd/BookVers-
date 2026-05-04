@@ -12,8 +12,7 @@ part of 'genre.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$Genre {
@@ -21,9 +20,7 @@ mixin _$Genre {
   String get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
 
-  /// Create a copy of Genre
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $GenreCopyWith<Genre> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -45,8 +42,6 @@ class _$GenreCopyWithImpl<$Res, $Val extends Genre>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of Genre
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -54,32 +49,28 @@ class _$GenreCopyWithImpl<$Res, $Val extends Genre>
     Object? name = null,
     Object? description = freezed,
   }) {
-    return _then(
-      _value.copyWith(
-            id: null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                      as int,
-            name: null == name
-                ? _value.name
-                : name // ignore: cast_nullable_to_non_nullable
-                      as String,
-            description: freezed == description
-                ? _value.description
-                : description // ignore: cast_nullable_to_non_nullable
-                      as String?,
-          )
-          as $Val,
-    );
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
   }
 }
 
 /// @nodoc
 abstract class _$$GenreImplCopyWith<$Res> implements $GenreCopyWith<$Res> {
   factory _$$GenreImplCopyWith(
-    _$GenreImpl value,
-    $Res Function(_$GenreImpl) then,
-  ) = __$$GenreImplCopyWithImpl<$Res>;
+          _$GenreImpl value, $Res Function(_$GenreImpl) then) =
+      __$$GenreImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int id, String name, String? description});
@@ -90,12 +81,9 @@ class __$$GenreImplCopyWithImpl<$Res>
     extends _$GenreCopyWithImpl<$Res, _$GenreImpl>
     implements _$$GenreImplCopyWith<$Res> {
   __$$GenreImplCopyWithImpl(
-    _$GenreImpl _value,
-    $Res Function(_$GenreImpl) _then,
-  ) : super(_value, _then);
+      _$GenreImpl _value, $Res Function(_$GenreImpl) _then)
+      : super(_value, _then);
 
-  /// Create a copy of Genre
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -103,22 +91,20 @@ class __$$GenreImplCopyWithImpl<$Res>
     Object? name = null,
     Object? description = freezed,
   }) {
-    return _then(
-      _$GenreImpl(
-        id: null == id
-            ? _value.id
-            : id // ignore: cast_nullable_to_non_nullable
-                  as int,
-        name: null == name
-            ? _value.name
-            : name // ignore: cast_nullable_to_non_nullable
-                  as String,
-        description: freezed == description
-            ? _value.description
-            : description // ignore: cast_nullable_to_non_nullable
-                  as String?,
-      ),
-    );
+    return _then(_$GenreImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
   }
 }
 
@@ -153,9 +139,7 @@ class _$GenreImpl implements _Genre {
   @override
   int get hashCode => Object.hash(runtimeType, id, name, description);
 
-  /// Create a copy of Genre
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GenreImplCopyWith<_$GenreImpl> get copyWith =>
@@ -163,11 +147,10 @@ class _$GenreImpl implements _Genre {
 }
 
 abstract class _Genre implements Genre {
-  const factory _Genre({
-    required final int id,
-    required final String name,
-    final String? description,
-  }) = _$GenreImpl;
+  const factory _Genre(
+      {required final int id,
+      required final String name,
+      final String? description}) = _$GenreImpl;
 
   @override
   int get id;
@@ -175,11 +158,8 @@ abstract class _Genre implements Genre {
   String get name;
   @override
   String? get description;
-
-  /// Create a copy of Genre
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GenreImplCopyWith<_$GenreImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
