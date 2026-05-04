@@ -1,5 +1,7 @@
 import 'package:bookvers/domain/entities/book.dart';
 import 'package:bookvers/presentation/providers/book_presentation_providers.dart';
+import 'package:bookvers/presentation/providers/export_provider.dart';
+import 'package:bookvers/presentation/providers/theme_provider.dart';
 import 'package:bookvers/presentation/widgets/book_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -61,6 +63,83 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
             floating: false,
             pinned: true,
             elevation: 0,
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Consumer(
+                  builder: (context, ref, child) {
+                    final exportState = ref.watch(exportProvider);
+                    final exportNotifier = ref.read(exportProvider.notifier);
+                    final filteredBooks = ref.watch(filteredBooksProvider);
+
+                    return PopupMenuButton(
+                      icon: const Icon(Icons.download),
+                      tooltip: 'Экспортировать',
+                      onSelected: (value) async {
+                        final ctx = context;
+                        
+                        if (filteredBooks.isEmpty) {
+                          if (mounted) {
+                            ScaffoldMessenger.of(ctx).showSnackBar(
+                              const SnackBar(
+                                content: Text('Нечего экспортировать'),
+                              ),
+                            );
+                          }
+                          return;
+                        }
+
+                        if (value == 'csv') {
+                          await exportNotifier.exportToCSV(filteredBooks);
+                        } else if (value == 'pdf') {
+                          await exportNotifier.exportToPDF(filteredBooks);
+                        }
+
+                        if (mounted && exportState.successMessage != null) {
+                          // ignore: use_build_context_synchronously
+                          ScaffoldMessenger.of(ctx).showSnackBar(
+                            SnackBar(
+                              content: Text(exportState.successMessage!),
+                            ),
+                          );
+                        }
+                      },
+                      itemBuilder: (BuildContext context) => [
+                        const PopupMenuItem(
+                          value: 'csv',
+                          child: Text('Экспорт в CSV'),
+                        ),
+                        const PopupMenuItem(
+                          value: 'pdf',
+                          child: Text('Экспорт в PDF'),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Consumer(
+                  builder: (context, ref, child) {
+                    final themeNotifier = ref.read(
+                      themeProvider.notifier,
+                    );
+                    return IconButton(
+                      icon: Icon(
+                        ref.watch(themeProvider) == ThemeMode.dark
+                            ? Icons.light_mode
+                            : Icons.dark_mode,
+                      ),
+                      tooltip: 'Переключить тему',
+                      onPressed: () async {
+                        await themeNotifier.toggleTheme();
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
             flexibleSpace: FlexibleSpaceBar(
               title: const Text('Моя библиотека'),
               centerTitle: true,
