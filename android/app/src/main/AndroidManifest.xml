@@ -1,4 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Разрешение для доступа в интернет (необходимо для открытия https ссылок) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    
     <application
         android:label="bookvers"
         android:name="${applicationName}"
@@ -37,6 +40,17 @@
 
          In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
     <queries>
+        <!-- Разрешаем открытие HTTPS ссылок для url_launcher -->
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="https"/>
+        </intent>
+        <!-- Разрешаем открытие HTTP ссылок для url_launcher -->
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="http"/>
+        </intent>
+        <!-- Для обработки текста (оригинальное) -->
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
