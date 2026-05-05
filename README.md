@@ -65,7 +65,10 @@
 lib/
 ├── core/                      # Общие утилиты
 │   ├── init_hive.dart        # Инициализация базы данных
-│   └── preferences_provider.dart  # Провайдер SharedPreferences
+│   ├── preferences_provider.dart  # Провайдер SharedPreferences
+│   ├── router.dart            # GoRouter с авторизацией
+│   └── exceptions/
+│       └── auth_exceptions.dart  # Кастомные исключения для Firebase
 │
 ├── data/                       # Слой данных
 │   ├── datasources/           # Работа с локальным хранилищем
@@ -74,44 +77,112 @@ lib/
 │   │   ├── book_model.dart
 │   │   └── genre_model.dart
 │   ├── repositories/          # Реализация интерфейсов репозиториев
-│   │   └── hive_book_repository.dart
+│   │   ├── hive_book_repository.dart
+│   │   └── firebase_auth_repository.dart  # Firebase Authentication
 │   ├── services/              # Бизнес-сервисы
 │   │   ├── export_service.dart        # Экспорт в CSV/PDF
-│   │   └── notification_service.dart  # Работа с уведомлениями
+│   │   └── book_service.dart          # Работа с ссылками на книги
 │   └── providers/             # Riverpod провайдеры для данных
 │       └── book_providers.dart
 │
 ├── domain/                     # Бизнес-логика
 │   ├── entities/              # Основные сущности
+│   │   ├── app_user.dart      # Пользователь (Freezed)
 │   │   ├── book.dart
 │   │   └── genre.dart
 │   └── repositories/          # Интерфейсы репозиториев
+│       ├── auth_repository.dart       # Интерфейс авторизации
 │       ├── book_repository.dart
 │       └── genre_repository.dart
 │
-└── presentation/               # Слой представления (UI)
-    ├── pages/                 # Экраны приложения
-    │   ├── library_screen.dart    # Главный экран с библиотекой
-    │   └── onboarding_screen.dart # Экран онбординга
-    ├── viewmodels/            # Логика состояния
-    │   ├── book_notifier.dart
-    │   ├── book_view_state.dart
-    │   ├── theme_notifier.dart
-    │   └── onboarding_notifier.dart
-    ├── providers/             # Riverpod провайдеры для UI
-    │   ├── book_presentation_providers.dart
-    │   ├── theme_provider.dart
-    │   └── export_provider.dart
-    └── widgets/               # Переиспользуемые компоненты
-        └── book_card.dart     # Карточка книги
-```
+├── presentation/               # Слой представления (UI)
+│   ├── pages/                 # Экраны приложения
+│   │   ├── login_screen.dart       # Экран входа
+│   │   ├── register_screen.dart    # Экран регистрации
+│   │   ├── library_screen.dart     # Главный экран с библиотекой
+│   │   ├── add_edit_book_screen.dart
+│   │   └── analytics_screen.dart   # Аналитика с графиками
+│   ├── viewmodels/            # Логика состояния
+│   │   ├── auth_notifier.dart      # Управление авторизацией
+│   │   ├── auth_state.dart         # Состояние авторизации (Freezed)
+│   │   ├── book_notifier.dart
+│   │   └── theme_notifier.dart
+│   ├── providers/             # Riverpod провайдеры для UI
+│   │   ├── auth_providers.dart     # Провайдеры авторизации
+│   │   ├── book_presentation_providers.dart
+│   │   └── theme_provider.dart
+│   └── widgets/               # Переиспользуемые компоненты
+│       └── book_card.dart     # Карточка книги
+│
+└── firebase_options.dart       # Firebase конфигурация (генерируется FlutterFire CLI)
 
 ---
 
+
+---
+
+## � Firebase Authentication (Новое!)
+
+### Настройка Firebase
+
+1. **Установите FlutterFire CLI**
+```bash
+dart pub global activate flutterfire_cli
+```
+
+2. **Настройте Firebase в проекте**
+```bash
+flutterfire configure
+```
+
+Этот скрипт:
+- Создаст/свяжет Firebase проект
+- Сгенерирует `firebase_options.dart` с вашими учётными данными
+- Добавит конфигурацию для Android, iOS, Web, macOS
+
+3. **Скопируйте сгенерированный файл**
+Если `firebase_options.dart` не был перезаписан автоматически, скопируйте его в `lib/firebase_options.dart`
+
+### Включение Email/Password Authentication в Firebase Console
+
+1. Зайдите в [Firebase Console](https://console.firebase.google.com)
+2. Выберите ваш проект
+3. Перейдите в **Authentication** → **Sign-in method**
+4. Нажмите на **Email/Password**
+5. Включите **Email/Password** опцию
+6. Сохраните изменения
+
+### Тестирование Авторизации
+
+**Демо-аккаунт для тестирования:**
+- Email: `demo@bookverse.com`
+- Password: `demo123456`
+
+Вы можете зарегистрировать этот аккаунт в Firebase или использовать его при первом входе (приложение автоматически создаст аккаунт).
 
 ---
 
 ## 📖 Инструкция по Использованию
+
+### 🔐 Вход в Приложение
+
+При первом запуске вы увидите экран входа:
+
+1. **Введите email адрес**
+2. **Введите пароль**
+3. **Нажмите "Войти"** или используйте кнопку "Тестовый вход"
+
+Если аккаунта нет, нажмите "Нет аккаунта? Зарегистрироваться"
+
+### 📝 Регистрация
+
+1. **На экране входа нажмите "Нет аккаунта? Зарегистрироваться"**
+2. **Заполните форму:**
+   - Email адрес
+   - Пароль (минимум 6 символов)
+   - Подтверждение пароля
+3. **Нажмите "Зарегистрироваться"**
+4. **Вы будете авторизованы и направлены в библиотеку**
 
 ### 🎬 При Первом Запуске
 
@@ -138,6 +209,8 @@ lib/
 4. **Книга появится в списке**
 
 ### 🔎 Поиск и Фильтрация
+
+
 
 1. **Поиск по названию/автору:**
    - Начните печатать в поле поиска
@@ -182,7 +255,14 @@ lib/
    - Тёмная (луна) 🌙
    - Система (по настройкам устройства) ⚙️
 
-### 📤 Экспорт Данных
+### � Выход из Аккаунта
+
+1. **Нажмите на меню (три точки или кнопку) в верхнем правом углу**
+2. **Найдите опцию "Выход" (Sign Out)**
+3. **Нажмите на неё**
+4. **Вы будете направлены на экран входа**
+
+---
 
 1. **Нажмите на иконку Download** (стрелка вниз) в верхнем правом углу
 2. **Выберите формат:**
@@ -263,21 +343,22 @@ flutter test --coverage
 - **Riverpod 2.4.0** — управление состоянием
 - **Freezed** — создание неизменяемых классов
 
+### Аутентификация & Backend
+- **Firebase Core 2.24.0** — инициализация Firebase
+- **Firebase Auth 4.14.0** — аутентификация Email/Password
+- **GoRouter 14.0.0+** — маршрутизация с authStateChanges
+
 ### Локальное Хранилище
 - **Hive 2.2.3** — быстрая локальная база данных
 - **SharedPreferences 2.2.0** — сохранение простых настроек
-
-### Уведомления & Расписание
-- **flutter_local_notifications 14.0.0** — локальные уведомления
-- **timezone 0.9.0** — управление временными зонами
 
 ### Экспорт & Шеринг
 - **csv 6.0.0** — генерирование CSV файлов
 - **pdf 3.10.0** — создание PDF документов
 - **share_plus 8.0.0** — встроенное меню шеринга
 
-### Навигация
-- **go_router 14.0.0** — маршрутизация (подготовлено для будущих экранов)
+### Визуализация Данных
+- **fl_chart 0.68.0** — графики и диаграммы
 
 ### Тестирование
 - **flutter_test** — встроенный фреймворк для тестирования
@@ -384,23 +465,26 @@ await ref.read(exportProvider.notifier).exportToPDF(books.value ?? []);
 
 ## 📊 Статистика
 
-- **Всего кода:** 2000+ строк
+- **Всего кода:** 2500+ строк
 - **Unit-тестов:** 43 теста
 - **Покрытие:** >85% бизнес-логики
-- **Зависимостей:** 14 пакетов
+- **Зависимостей:** 16 пакетов
 - **Платформы:** Android, iOS, Web (подготовлено)
 - **Минимальная версия:** Flutter 3.9.2
+- **Архитектура:** Clean Architecture + Riverpod
 
 ---
 
 ## 🚀 Будущие Улучшения
 
-- 📊 Расширенная аналитика и графики
-- ☁️ Синхронизация с облаком
+- ✅ **Firebase Authentication** — Email/Password вход и регистрация (реализовано!)
+- 📊 Расширенная аналитика и графики (начало реализации - grafiki)
+- ☁️ Синхронизация с облаком (Firebase Firestore)
 - 📚 Категории и жанры
 - ⭐ Рейтинг и рецензии
 - 🏆 Система достижений
 - 🤖 Рекомендации AI
+- 👥 Социальные функции (поделиться с друзьями)
 
 ---
 

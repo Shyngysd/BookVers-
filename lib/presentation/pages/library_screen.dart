@@ -1,12 +1,15 @@
+import 'package:bookvers/core/router.dart';
 import 'package:bookvers/domain/entities/book.dart';
 import 'package:bookvers/presentation/pages/add_edit_book_screen.dart';
 import 'package:bookvers/presentation/pages/analytics_screen.dart';
+import 'package:bookvers/presentation/providers/auth_providers.dart';
 import 'package:bookvers/presentation/providers/book_presentation_providers.dart';
 import 'package:bookvers/presentation/providers/export_provider.dart';
 import 'package:bookvers/presentation/providers/theme_provider.dart';
 import 'package:bookvers/presentation/widgets/book_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class LibraryScreen extends ConsumerStatefulWidget {
   const LibraryScreen({super.key});
@@ -153,6 +156,20 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
                         await themeNotifier.toggleTheme();
                       },
                     );
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: IconButton(
+                  icon: const Icon(Icons.logout),
+                  tooltip: 'Выход',
+                  onPressed: () async {
+                    final authNotifier = ref.read(authNotifierProvider.notifier);
+                    await authNotifier.signOut();
+                    if (context.mounted) {
+                      context.go(loginRoute);
+                    }
                   },
                 ),
               ),
