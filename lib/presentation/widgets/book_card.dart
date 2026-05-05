@@ -6,6 +6,7 @@ class BookCard extends StatelessWidget {
   final VoidCallback? onTap;
   final VoidCallback? onEdit;
   final VoidCallback? onDelete;
+  final VoidCallback? onRead;
 
   const BookCard({
     super.key,
@@ -13,6 +14,7 @@ class BookCard extends StatelessWidget {
     this.onTap,
     this.onEdit,
     this.onDelete,
+    this.onRead,
   });
 
   /// Получить цвет чипа по статусу
@@ -79,6 +81,17 @@ class BookCard extends StatelessWidget {
                 color: _getStatusColor(book.status),
               ),
             ),
+            if (book.url != null && book.url!.isNotEmpty) ...[
+              const SizedBox(height: 12),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: onRead,
+                  icon: const Icon(Icons.open_in_browser),
+                  label: const Text('Читать'),
+                ),
+              ),
+            ],
           ],
         ),
         onTap: onTap,

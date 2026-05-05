@@ -18,5 +18,6 @@ class Book with _$Book {
     required String description,
     required BookStatus status,
     required int genreId,
+    String? url,
   }) = _Book;
 }

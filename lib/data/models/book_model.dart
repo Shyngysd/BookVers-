@@ -7,6 +7,7 @@ class BookModel {
   final String description;
   final String status; // Сохраняем как строку для упрощения
   final int genreId;
+  final String? url; // Опциональная ссылка на книгу
 
   BookModel({
     required this.id,
@@ -15,7 +16,9 @@ class BookModel {
     required this.description,
     required this.status,
     required this.genreId,
+    this.url,
   });
+
   Book toDomain() {
     return Book(
       id: id,
@@ -27,6 +30,7 @@ class BookModel {
         orElse: () => BookStatus.available,
       ),
       genreId: genreId,
+      url: url,
     );
   }
 
@@ -39,6 +43,7 @@ class BookModel {
       description: book.description,
       status: book.status.toString().split('.').last,
       genreId: book.genreId,
+      url: book.url,
     );
   }
 }

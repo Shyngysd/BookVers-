@@ -2,6 +2,7 @@ import 'package:bookvers/domain/entities/book.dart';
 import 'package:bookvers/domain/repositories/book_repository.dart';
 import 'package:bookvers/presentation/viewmodels/book_view_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BookNotifier extends StateNotifier<BookViewState> {
   final IBookRepository _repository;
@@ -56,6 +57,32 @@ class BookNotifier extends StateNotifier<BookViewState> {
   /// Очистить фильтры
   void clearFilters() {
     state = state.copyWith(searchQuery: '', statusFilter: null);
+  }
+
+  /// Открыть ссылку на книгу в браузере
+  Future<bool> openBookUrl(String? url) async {
+    if (url == null || url.isEmpty) {
+      return false;
+    }
+
+    try {
+      // Проверяем, что URL валидный
+      final uri = Uri.tryParse(url);
+      if (uri == null) {
+        return false;
+      }
+
+      // Пытаемся открыть URL
+      if (await canLaunchUrl(uri)) {
+        return await launchUrl(
+          uri,
+          mode: LaunchMode.externalApplication,
+        );
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
   }
 
   /// Обновить список книг

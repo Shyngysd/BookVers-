@@ -22,6 +22,7 @@ mixin _$Book {
   String get description => throw _privateConstructorUsedError;
   BookStatus get status => throw _privateConstructorUsedError;
   int get genreId => throw _privateConstructorUsedError;
+  String? get url => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BookCopyWith<Book> get copyWith => throw _privateConstructorUsedError;
@@ -38,7 +39,8 @@ abstract class $BookCopyWith<$Res> {
       String author,
       String description,
       BookStatus status,
-      int genreId});
+      int genreId,
+      String? url});
 }
 
 /// @nodoc
@@ -60,6 +62,7 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
     Object? description = null,
     Object? status = null,
     Object? genreId = null,
+    Object? url = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -86,6 +89,10 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
           ? _value.genreId
           : genreId // ignore: cast_nullable_to_non_nullable
               as int,
+      url: freezed == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -103,7 +110,8 @@ abstract class _$$BookImplCopyWith<$Res> implements $BookCopyWith<$Res> {
       String author,
       String description,
       BookStatus status,
-      int genreId});
+      int genreId,
+      String? url});
 }
 
 /// @nodoc
@@ -122,6 +130,7 @@ class __$$BookImplCopyWithImpl<$Res>
     Object? description = null,
     Object? status = null,
     Object? genreId = null,
+    Object? url = freezed,
   }) {
     return _then(_$BookImpl(
       id: null == id
@@ -148,6 +157,10 @@ class __$$BookImplCopyWithImpl<$Res>
           ? _value.genreId
           : genreId // ignore: cast_nullable_to_non_nullable
               as int,
+      url: freezed == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -161,7 +174,8 @@ class _$BookImpl implements _Book {
       required this.author,
       required this.description,
       required this.status,
-      required this.genreId});
+      required this.genreId,
+      this.url});
 
   @override
   final int id;
@@ -175,10 +189,12 @@ class _$BookImpl implements _Book {
   final BookStatus status;
   @override
   final int genreId;
+  @override
+  final String? url;
 
   @override
   String toString() {
-    return 'Book(id: $id, title: $title, author: $author, description: $description, status: $status, genreId: $genreId)';
+    return 'Book(id: $id, title: $title, author: $author, description: $description, status: $status, genreId: $genreId, url: $url)';
   }
 
   @override
@@ -192,12 +208,13 @@ class _$BookImpl implements _Book {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.genreId, genreId) || other.genreId == genreId));
+            (identical(other.genreId, genreId) || other.genreId == genreId) &&
+            (identical(other.url, url) || other.url == url));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, title, author, description, status, genreId);
+  int get hashCode => Object.hash(
+      runtimeType, id, title, author, description, status, genreId, url);
 
   @JsonKey(ignore: true)
   @override
@@ -213,7 +230,8 @@ abstract class _Book implements Book {
       required final String author,
       required final String description,
       required final BookStatus status,
-      required final int genreId}) = _$BookImpl;
+      required final int genreId,
+      final String? url}) = _$BookImpl;
 
   @override
   int get id;
@@ -227,6 +245,8 @@ abstract class _Book implements Book {
   BookStatus get status;
   @override
   int get genreId;
+  @override
+  String? get url;
   @override
   @JsonKey(ignore: true)
   _$$BookImplCopyWith<_$BookImpl> get copyWith =>

@@ -1,4 +1,5 @@
 import 'package:bookvers/domain/entities/book.dart';
+import 'package:bookvers/presentation/pages/add_edit_book_screen.dart';
 import 'package:bookvers/presentation/providers/book_presentation_providers.dart';
 import 'package:bookvers/presentation/providers/export_provider.dart';
 import 'package:bookvers/presentation/providers/theme_provider.dart';
@@ -42,9 +43,10 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
 
   /// Показать диалог для добавления книги
   void _showAddBookDialog() {
-    // TODO: Реализовать навигацию на AddEditBookScreen
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Переход на экран добавления (TODO)')),
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const AddEditBookScreen(),
+      ),
     );
   }
 
@@ -340,10 +342,9 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
                       );
                     },
                     onEdit: () {
-                      // TODO: Переход на AddEditBookScreen
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Редактировать: ${book.title}'),
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => AddEditBookScreen(book: book),
                         ),
                       );
                     },
@@ -379,6 +380,19 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
                           ],
                         ),
                       );
+                    },
+                    onRead: () async {
+                      final ctx = context;
+                      final success = await bookNotifier.openBookUrl(book.url);
+                      if (!success && mounted) {
+                        // ignore: use_build_context_synchronously
+                        ScaffoldMessenger.of(ctx).showSnackBar(
+                          const SnackBar(
+                            content: Text('Не удалось открыть ссылку'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
                     },
                   );
                 },
