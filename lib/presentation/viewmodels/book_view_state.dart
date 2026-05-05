@@ -1,5 +1,7 @@
 import 'package:bookvers/domain/entities/book.dart';
 
+const _undefined = Object();
+
 class BookViewState {
   final List<Book> books;
   final String searchQuery;
@@ -13,13 +15,13 @@ class BookViewState {
 
   BookViewState copyWith({
     List<Book>? books,
-    String? searchQuery,
-    BookStatus? statusFilter,
+    dynamic searchQuery = _undefined,
+    dynamic statusFilter = _undefined,
   }) {
     return BookViewState(
       books: books ?? this.books,
-      searchQuery: searchQuery ?? this.searchQuery,
-      statusFilter: statusFilter ?? this.statusFilter,
+      searchQuery: searchQuery == _undefined ? this.searchQuery : searchQuery,
+      statusFilter: statusFilter == _undefined ? this.statusFilter : statusFilter,
     );
   }
 

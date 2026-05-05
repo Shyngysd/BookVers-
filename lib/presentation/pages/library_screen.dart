@@ -1,5 +1,6 @@
 import 'package:bookvers/domain/entities/book.dart';
 import 'package:bookvers/presentation/pages/add_edit_book_screen.dart';
+import 'package:bookvers/presentation/pages/analytics_screen.dart';
 import 'package:bookvers/presentation/providers/book_presentation_providers.dart';
 import 'package:bookvers/presentation/providers/export_provider.dart';
 import 'package:bookvers/presentation/providers/theme_provider.dart';
@@ -66,6 +67,20 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
             pinned: true,
             elevation: 0,
             actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: IconButton(
+                  icon: const Icon(Icons.analytics),
+                  tooltip: 'Аналитика',
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const AnalyticsScreen(),
+                      ),
+                    );
+                  },
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
                 child: Consumer(

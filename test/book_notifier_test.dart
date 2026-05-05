@@ -8,6 +8,20 @@ import 'package:mocktail/mocktail.dart';
 class MockBookRepository extends Mock implements IBookRepository {}
 
 void main() {
+  setUpAll(() {
+    registerFallbackValue(
+      const Book(
+        id: 0,
+        title: 'Fallback',
+        author: 'Fallback',
+        description: '',
+        status: BookStatus.available,
+        genreId: 1,
+        url: null,
+      ),
+    );
+  });
+
   group('BookNotifier Tests', () {
     late BookNotifier bookNotifier;
     late MockBookRepository mockRepository;
@@ -26,6 +40,7 @@ void main() {
         description: 'Исторический роман',
         status: BookStatus.available,
         genreId: 1,
+        url: null,
       ),
       const Book(
         id: 2,
@@ -34,6 +49,7 @@ void main() {
         description: 'Антиутопия',
         status: BookStatus.borrowed,
         genreId: 2,
+        url: null,
       ),
       const Book(
         id: 3,
@@ -42,6 +58,7 @@ void main() {
         description: 'Антиутопия',
         status: BookStatus.reserved,
         genreId: 2,
+        url: null,
       ),
     ];
 

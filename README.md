@@ -370,6 +370,9 @@ flutter run
 flutter run --no-fast-start
 ```
 
+
+
+
 ### Ошибки при тестировании
 ```bash
 flutter test --no-test-assets
